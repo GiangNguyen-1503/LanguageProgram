@@ -29,4 +29,8 @@ impl Env {
     pub fn insert(&mut self, var: String, value: Value) {
         self.env.insert(var, value);
     }
+
+    pub fn remove(&mut self, var: &str) {
+        self.env.remove(var);
+    }
 }
