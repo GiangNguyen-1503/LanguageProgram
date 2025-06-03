@@ -1,36 +1,32 @@
 use std::collections::HashMap;
-use crate::Value;
+use crate::typing::Type;
 
 // Define a private type alias for our internal environment representation
-type T = HashMap<String, Value>;
+type T = HashMap<String, Type>;
 
 // Define a public struct to represent the environment
 #[derive(Debug, Clone)]
-pub struct Env {
+pub struct TypeEnv {
     env: T,
 }
 
-impl Env {
+impl TypeEnv {
     // Public function to create an empty environment
     pub fn new() -> Self {
-        Env {
+        TypeEnv {
             env: HashMap::new(),
         }
     }
 
     // Public function to lookup a variable in the environment
-    pub fn lookup(&self, var: &str) -> Value {
+    pub fn lookup(&self, var: &str) -> Type {
         self.env.get(var)
             .cloned()
             .unwrap_or_else(|| panic!("Variable '{}' not found in the environment", var))
     }
 
     // Public function to insert a value into the environment
-    pub fn insert(&mut self, var: String, value: Value) {
-        self.env.insert(var, value);
-    }
-
-    pub fn remove(&mut self, var: &str) {
-        self.env.remove(var);
+    pub fn insert(&mut self, var: String, var_type: Type) {
+        self.env.insert(var, var_type);
     }
 }
